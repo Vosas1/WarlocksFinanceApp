@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
+import LogoutButton from './LogoutButton';
 
 const NavBar = () => {
+    const { auth } = useContext(AuthContext);
+
     return (
         <AppBar position="static">
             <Toolbar>
@@ -25,12 +29,18 @@ const NavBar = () => {
                     <Button color="inherit" component={Link} to="/overview">
                         Overview
                     </Button>
-                    <Button color="inherit" component={Link} to="/register">
-                        Register
-                    </Button>
-                    <Button color="inherit" component={Link} to="/login">
-                        Login
-                    </Button>
+                    {auth ? (
+                        <LogoutButton />
+                    ) : (
+                        <>
+                            <Button color="inherit" component={Link} to="/register">
+                                Register
+                            </Button>
+                            <Button color="inherit" component={Link} to="/login">
+                                Login
+                            </Button>
+                        </>
+                    )}
                 </Box>
             </Toolbar>
         </AppBar>
