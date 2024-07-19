@@ -3,17 +3,23 @@ import axios from 'axios';
 import AuthContext from '../context/AuthContext';
 import { Container, Typography, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 
+// OverviewPage component: Displays an overview of all transactions
 const OverviewPage = () => {
+    // State variables for transactions and editing dialogs
     const [transactions, setTransactions] = useState([]);
     const [selectedTransaction, setSelectedTransaction] = useState(null);
     const [open, setOpen] = useState(false);
     const [editAmount, setEditAmount] = useState('');
     const [editDescription, setEditDescription] = useState('');
+    
+    // Access the auth state from AuthContext
     const { auth } = useContext(AuthContext);
 
+    // Fetch transactions data on component mount
     useEffect(() => {
         const fetchData = async () => {
             try {
+                // Fetch expenses, loans, and credits concurrently
                 const [expensesResponse, loansResponse, creditsResponse] = await Promise.all([
                     axios.get('http://localhost:5000/api/expenses', {
                         headers: { Authorization: `Bearer ${auth}` },
@@ -25,6 +31,7 @@ const OverviewPage = () => {
                         headers: { Authorization: `Bearer ${auth}` },
                     }),
                 ]);
+                // Combine all transactions into a single array with type information
                 setTransactions([
                     ...expensesResponse.data.map((expense) => ({ ...expense, type: 'Expense' })),
                     ...loansResponse.data.map((loan) => ({ ...loan, type: 'Loan' })),
@@ -40,6 +47,7 @@ const OverviewPage = () => {
         }
     }, [auth]);
 
+    // Handle delete transaction
     const handleDelete = async (id) => {
         try {
             await axios.delete(`http://localhost:5000/api/expenses/${id}`, {
@@ -51,6 +59,7 @@ const OverviewPage = () => {
         }
     };
 
+    // Handle edit transaction
     const handleEdit = (transaction) => {
         setSelectedTransaction(transaction);
         setEditAmount(transaction.amount);
@@ -58,10 +67,12 @@ const OverviewPage = () => {
         setOpen(true);
     };
 
+    // Close the edit dialog
     const handleClose = () => {
         setOpen(false);
     };
 
+    // Handle update transaction
     const handleUpdate = async () => {
         try {
             await axios.put(`http://localhost:5000/api/expenses/${selectedTransaction._id}`, {

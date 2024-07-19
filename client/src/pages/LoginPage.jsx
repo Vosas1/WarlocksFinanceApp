@@ -4,20 +4,29 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 
+// LoginPage component: A form for user login
 const LoginPage = () => {
+    // State variables for the form inputs
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    
+    // Access the setAuth function from AuthContext
     const { setAuth } = useContext(AuthContext);
+    
+    // useNavigate hook for programmatic navigation
     const navigate = useNavigate();
 
+    // Function to handle form submission
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault();  // Prevent the default form submission
+        
         try {
+            // Make a POST request to log in the user
             const response = await axios.post('http://localhost:5000/api/users/login', { email, password });
-            setAuth(response.data.token);
-            navigate('/');
+            setAuth(response.data.token);  // Set the authentication token in the context
+            navigate('/');  // Redirect to the home page
         } catch (error) {
-            console.error(error);
+            console.error(error);  // Log any errors
         }
     };
 
@@ -34,7 +43,9 @@ const LoginPage = () => {
                 <Typography component="h1" variant="h5">
                     Login
                 </Typography>
+                {/* Form for email and password inputs */}
                 <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    {/* Input for email */}
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -48,6 +59,7 @@ const LoginPage = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
+                    {/* Input for password */}
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -61,6 +73,7 @@ const LoginPage = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                    {/* Submit button */}
                     <Button
                         type="submit"
                         fullWidth

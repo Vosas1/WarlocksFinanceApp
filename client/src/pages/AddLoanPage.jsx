@@ -3,30 +3,37 @@ import { Container, TextField, Button, Typography, Box, Alert } from '@mui/mater
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
 
+// AddLoanPage component: A form for adding loan entries
 const AddLoanPage = () => {
+    // State variables for the form inputs and messages
     const [amount, setAmount] = useState('');
     const [description, setDescription] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    
+    // Access the auth state from AuthContext
     const { auth } = useContext(AuthContext);
 
+    // Function to handle form submission
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError('');
-        setSuccess('');
+        e.preventDefault();  // Prevent the default form submission
+        setError('');  // Reset error message
+        setSuccess('');  // Reset success message
+
         try {
+            // Make a POST request to add the loan entry
             await axios.post(
                 'http://localhost:5000/api/loans/add',
                 { amount, description },
-                { headers: { Authorization: `Bearer ${auth}` } }
+                { headers: { Authorization: `Bearer ${auth}` } }  // Include the authorization header
             );
             // Clear input fields after successful submission
-            setAmount('');
-            setDescription('');
-            setSuccess('Loan added successfully!');
+            setAmount('');  // Clear the amount input
+            setDescription('');  // Clear the description input
+            setSuccess('Loan added successfully!');  // Set success message
         } catch (error) {
             console.error(error);
-            setError(error.response?.data?.message || 'An error occurred');
+            setError(error.response?.data?.message || 'An error occurred');  // Set error message
         }
     };
 
@@ -43,9 +50,12 @@ const AddLoanPage = () => {
                 <Typography component="h1" variant="h5">
                     Add Loan
                 </Typography>
+                {/* Display error message if any */}
                 {error && <Alert severity="error">{error}</Alert>}
+                {/* Display success message if any */}
                 {success && <Alert severity="success">{success}</Alert>}
                 <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    {/* Input for amount */}
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -60,6 +70,7 @@ const AddLoanPage = () => {
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
                     />
+                    {/* Input for description */}
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -72,6 +83,7 @@ const AddLoanPage = () => {
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
+                    {/* Submit button */}
                     <Button
                         type="submit"
                         fullWidth

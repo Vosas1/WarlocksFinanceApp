@@ -3,22 +3,29 @@ import { Container, TextField, Button, Typography, Box, Alert } from '@mui/mater
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+// RegisterPage component: A form for user registration
 const RegisterPage = () => {
+    // State variables for the form inputs and error message
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    
+    // useNavigate hook for programmatic navigation
     const navigate = useNavigate();
 
+    // Function to handle form submission
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError('');
+        e.preventDefault();  // Prevent the default form submission
+        setError('');  // Reset error message
+
         try {
+            // Make a POST request to register the user
             await axios.post('http://localhost:5000/api/users/register', { name, email, password });
-            navigate('/login');
+            navigate('/login');  // Redirect to the login page
         } catch (error) {
             console.error(error);
-            setError(error.response?.data?.message || 'An error occurred');
+            setError(error.response?.data?.message || 'An error occurred');  // Set error message
         }
     };
 
@@ -35,8 +42,10 @@ const RegisterPage = () => {
                 <Typography component="h1" variant="h5">
                     Register
                 </Typography>
+                {/* Display error message if any */}
                 {error && <Alert severity="error">{error}</Alert>}
                 <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                    {/* Input for name */}
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -50,6 +59,7 @@ const RegisterPage = () => {
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
+                    {/* Input for email */}
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -62,6 +72,7 @@ const RegisterPage = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
+                    {/* Input for password */}
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -75,6 +86,7 @@ const RegisterPage = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
+                    {/* Submit button */}
                     <Button
                         type="submit"
                         fullWidth
