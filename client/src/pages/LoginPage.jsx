@@ -3,6 +3,7 @@ import { Container, TextField, Button, Typography, Box } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
+import '../Styles/LoginPage.css';
 
 // LoginPage component: A form for user login
 const LoginPage = () => {
@@ -18,34 +19,27 @@ const LoginPage = () => {
 
     // Function to handle form submission
     const handleSubmit = async (e) => {
-        e.preventDefault();  // Prevent the default form submission
+        e.preventDefault();
         
         try {
             // Make a POST request to log in the user
             const response = await axios.post('http://localhost:5000/api/users/login', { email, password });
-            setAuth(response.data.token);  // Set the authentication token in the context
-            navigate('/');  // Redirect to the home page
+            setAuth(response.data.token);
+            navigate('/');
         } catch (error) {
-            console.error(error);  // Log any errors
+            console.error(error);
         }
     };
 
     return (
         <Container component="main" maxWidth="xs">
-            <Box
-                sx={{
-                    marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
-            >
+            <Box className="container">
+                {/* Page Title */}
                 <Typography component="h1" variant="h5">
                     Login
                 </Typography>
-                {/* Form for email and password inputs */}
-                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-                    {/* Input for email */}
+                {/* Form */}
+                <Box component="form" onSubmit={handleSubmit} className="form">
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -58,8 +52,9 @@ const LoginPage = () => {
                         autoFocus
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        InputProps={{ className: 'inputField' }}
+                        InputLabelProps={{ className: 'inputLabel' }}
                     />
-                    {/* Input for password */}
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -72,8 +67,9 @@ const LoginPage = () => {
                         autoComplete="current-password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        InputProps={{ className: 'inputField' }}
+                        InputLabelProps={{ className: 'inputLabel' }}
                     />
-                    {/* Submit button */}
                     <Button
                         type="submit"
                         fullWidth

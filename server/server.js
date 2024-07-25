@@ -5,6 +5,7 @@ const userRoutes = require('./routes/userRoutes');
 const expenseRoutes = require('./routes/expenseRoutes');
 const loanRoutes = require('./routes/loanRoutes');
 const creditRoutes = require('./routes/creditRoutes');
+const contactRoutes = require('./routes/contactRoutes');
 
 const app = express();
 app.use(cors());
@@ -21,6 +22,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/expenses', expenseRoutes);
 app.use('/api/loans', loanRoutes);
 app.use('/api/credits', creditRoutes);
+app.use('/api/contact', contactRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

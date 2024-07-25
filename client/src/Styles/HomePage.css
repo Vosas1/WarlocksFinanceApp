@@ -1,0 +1,65 @@
+/* Logo container styling */
+.logo-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 50%;
+    height: auto;
+    padding: 2rem;
+    background-color: transparent;
+}
+
+/* Logo styling */
+.logo {
+    width: 100%;
+    max-width: 80%;
+    opacity: 0.3;
+    border: 2px solid limegreen;
+    border-radius: 8px;
+}
+
+/* Text and image container styling */
+.text-and-image-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    max-width: 50%;
+    height: 100%;
+    padding: 2rem;
+}
+
+/* Text container styling */
+.text-container {
+    width: 100%;
+    padding: 2rem;
+    background-color: white;
+    color: black;
+    overflow-y: auto;
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
+    border: 2px solid limegreen;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+/* Image container styling */
+.image-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2rem;
+    overflow-y: auto;
+    background-color: transparent;
+}
+
+/* Image styling */
+.image {
+    width: 20%;
+    height: auto;
+    border: 2px solid limegreen;
+    border-radius: 8px;
+}

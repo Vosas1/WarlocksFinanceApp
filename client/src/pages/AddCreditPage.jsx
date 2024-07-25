@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Container, TextField, Button, Typography, Box, Alert } from '@mui/material';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
+import '../Styles/AddCreditPage.css';
 
 // AddCreditPage component: A form for adding credit entries
 const AddCreditPage = () => {
@@ -16,36 +17,30 @@ const AddCreditPage = () => {
 
     // Function to handle form submission
     const handleSubmit = async (e) => {
-        e.preventDefault();  // Prevent the default form submission
-        setError('');  // Reset error message
-        setSuccess('');  // Reset success message
+        e.preventDefault();
+        setError('');
+        setSuccess('');
 
         try {
             // Make a POST request to add the credit entry
             await axios.post(
                 'http://localhost:5000/api/credits/add',
                 { amount, description },
-                { headers: { Authorization: `Bearer ${auth}` } }  // Include the authorization header
+                { headers: { Authorization: `Bearer ${auth}` } }
             );
-            setAmount('');  // Clear the amount input
-            setDescription('');  // Clear the description input
-            setSuccess('Credit added successfully!');  // Set success message
+            setAmount('');
+            setDescription('');
+            setSuccess('Credit added successfully!');
         } catch (error) {
             console.error(error);
-            setError(error.response?.data?.message || 'An error occurred');  // Set error message
+            setError(error.response?.data?.message || 'An error occurred');
         }
     };
 
     return (
         <Container component="main" maxWidth="xs">
-            <Box
-                sx={{
-                    marginTop: 8,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                }}
-            >
+            <Box className="container">
+                {/* Page Title */}
                 <Typography component="h1" variant="h5">
                     Add Credit
                 </Typography>
@@ -53,7 +48,8 @@ const AddCreditPage = () => {
                 {error && <Alert severity="error">{error}</Alert>}
                 {/* Display success message if any */}
                 {success && <Alert severity="success">{success}</Alert>}
-                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                {/* Form */}
+                <Box component="form" onSubmit={handleSubmit} className="form">
                     {/* Input for amount */}
                     <TextField
                         variant="outlined"
@@ -68,6 +64,8 @@ const AddCreditPage = () => {
                         autoFocus
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
+                        InputProps={{ className: 'inputField' }}
+                        InputLabelProps={{ className: 'inputLabel' }}
                     />
                     {/* Input for description */}
                     <TextField
@@ -81,6 +79,8 @@ const AddCreditPage = () => {
                         autoComplete="off"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
+                        InputProps={{ className: 'inputField' }}
+                        InputLabelProps={{ className: 'inputLabel' }}
                     />
                     {/* Submit button */}
                     <Button

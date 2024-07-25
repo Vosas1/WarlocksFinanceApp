@@ -1,48 +1,72 @@
 import React from 'react';
-import { Container, Typography, Box, List, ListItem, ListItemText } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import logo from '../assets/Images/financial warlocks logo.jpg';
+import Lee from '../assets/Images/Lee.png';
+import Victor from '../assets/Images/Victor.png';
+import Derek from '../assets/Images/Derek.png';
+import Khyam from '../assets/Images/Khyam.png';
+import '../Styles/HomePage.css';
 
 // HomePage component: Displays the home page content
 const HomePage = () => {
     return (
-        <Container>
-            <Box sx={{ marginTop: 8 }}>
-                {/* Page title */}
-                <Typography variant="h2" gutterBottom>
-                    COMP229 Group Project
-                </Typography>
-                {/* Introduction and description */}
-                <Typography variant="h4" paragraph>
-                    This is your one-stop solution to track all your expenses, loans, and credits.
-                    Use the navigation links to add new transactions and view an overview of all your financial activities.
-                </Typography>
-                {/* Description of the project stack */}
-                <Typography variant="h4" paragraph>
-                    The Expense Tracker is a full-stack web application built using the MERN stack (MongoDB, Express, React, Node.js).
-                </Typography>
-                {/* Team introduction */}
-                <Typography variant="h4" paragraph>
-                    It is a collaborative project by the Financial Warlocks team.
-                </Typography>
-                {/* Team members list */}
-                <Typography variant="h5" gutterBottom>
-                    Team Members:
-                </Typography>
-                <List>
-                    <ListItem>
-                        <ListItemText primary="Derek" />
-                    </ListItem>
-                    <ListItem>
-                        <ListItemText primary="Victor" />
-                    </ListItem>
-                    <ListItem>
-                        <ListItemText primary="Lee" />
-                    </ListItem>
-                    <ListItem>
-                        <ListItemText primary="Khyam" />
-                    </ListItem>
-                </List>
+        <Box 
+            sx={{ 
+                flexGrow: 1, 
+                display: 'flex', 
+                flexDirection: 'row', 
+                justifyContent: 'center', 
+                alignItems: 'center', 
+                minHeight: 'calc(100vh - 64px - 64px)',
+                padding: '2rem',
+                boxSizing: 'border-box'
+            }}
+        >
+            {/* Container for the logo */}
+            <Box className="logo-container">
+                <Box
+                    component="img"
+                    src={logo}
+                    alt="Financial Warlocks Logo"
+                    className="logo"
+                />
             </Box>
-        </Container>
+            
+            {/* Container for the text and images */}
+            <Box 
+                sx={{
+                    flex: '1',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    maxWidth: '50%',
+                    height: '100%',
+                }}
+            >
+                {/* Text container */}
+                <Box className="text-container">
+                    <Typography variant="h4" gutterBottom>
+                        Welcome back!
+                    </Typography>
+                    <Typography variant="h5" paragraph>
+                        The Financial Warlocks are here to help.
+                    </Typography>
+                    <Typography variant="h5" paragraph>
+                        Follow the links in the navigation bar to begin tracking your credit cards, loans, and expenses.
+                    </Typography>
+                    <Typography variant="h5" paragraph>
+                        Hover your mouse over the images below to learn more about the developers.
+                    </Typography>
+                </Box>
+                
+                {/* New container for images */}
+                <Box className="image-container">
+                    <Box component="img" src={Lee} alt="Lee" className="image" />
+                    <Box component="img" src={Victor} alt="Victor" className="image" />
+                    <Box component="img" src={Derek} alt="Derek" className="image" />
+                    <Box component="img" src={Khyam} alt="Khyam" className="image" />
+                </Box>
+            </Box>
+        </Box>
     );
 };
 

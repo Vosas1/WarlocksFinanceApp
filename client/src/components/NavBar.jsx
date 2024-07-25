@@ -20,19 +20,64 @@ const NavBar = () => {
                 {/* Navigation buttons container */}
                 <Box>
                     {/* Navigation buttons to different routes */}
-                    <Button color="inherit" component={Link} to="/">
+                    <Button 
+                        color="inherit" 
+                        component={Link} 
+                        to="/" 
+                        sx={{ 
+                            '&:hover': { 
+                                color: 'limegreen' 
+                            }
+                        }}
+                    >
                         Home
                     </Button>
-                    <Button color="inherit" component={Link} to="/add-credit">
+                    <Button 
+                        color="inherit" 
+                        component={Link} 
+                        to="/add-credit" 
+                        sx={{ 
+                            '&:hover': { 
+                                color: 'limegreen' 
+                            }
+                        }}
+                    >
                         Add Credit
                     </Button>
-                    <Button color="inherit" component={Link} to="/add-loan">
+                    <Button 
+                        color="inherit" 
+                        component={Link} 
+                        to="/add-loan" 
+                        sx={{ 
+                            '&:hover': { 
+                                color: 'limegreen' 
+                            }
+                        }}
+                    >
                         Add Loan
                     </Button>
-                    <Button color="inherit" component={Link} to="/add-expense">
+                    <Button 
+                        color="inherit" 
+                        component={Link} 
+                        to="/add-expense" 
+                        sx={{ 
+                            '&:hover': { 
+                                color: 'limegreen' 
+                            }
+                        }}
+                    >
                         Add Expense
                     </Button>
-                    <Button color="inherit" component={Link} to="/overview">
+                    <Button 
+                        color="inherit" 
+                        component={Link} 
+                        to="/overview" 
+                        sx={{ 
+                            '&:hover': { 
+                                color: 'limegreen' 
+                            }
+                        }}
+                    >
                         Overview
                     </Button>
                     {/* Conditional rendering based on authentication status */}
@@ -42,10 +87,28 @@ const NavBar = () => {
                     ) : (
                         // Show Register and Login buttons if not authenticated
                         <>
-                            <Button color="inherit" component={Link} to="/register">
+                            <Button 
+                                color="inherit" 
+                                component={Link} 
+                                to="/register" 
+                                sx={{ 
+                                    '&:hover': { 
+                                        color: 'limegreen' 
+                                    }
+                                }}
+                            >
                                 Register
                             </Button>
-                            <Button color="inherit" component={Link} to="/login">
+                            <Button 
+                                color="inherit" 
+                                component={Link} 
+                                to="/login" 
+                                sx={{ 
+                                    '&:hover': { 
+                                        color: 'limegreen' 
+                                    }
+                                }}
+                            >
                                 Login
                             </Button>
                         </>

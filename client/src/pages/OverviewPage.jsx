@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
-import { Container, Typography, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Container, Typography, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, Alert } from '@mui/material';
+import '../Styles/OverviewPage.css';
 
 // OverviewPage component: Displays an overview of all transactions
 const OverviewPage = () => {
@@ -93,12 +94,14 @@ const OverviewPage = () => {
     };
 
     return (
-        <Container>
-            <Box sx={{ marginTop: 8 }}>
+        <Container component="main" maxWidth="lg">
+            <Box className="container">
+                {/* Page Title */}
                 <Typography variant="h4" gutterBottom>
                     Overview
                 </Typography>
-                <TableContainer component={Paper}>
+                {/* Transactions Table */}
+                <TableContainer component={Paper} className="table-container">
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -139,6 +142,7 @@ const OverviewPage = () => {
                     </Table>
                 </TableContainer>
             </Box>
+            {/* Edit Dialog */}
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Edit Transaction</DialogTitle>
                 <DialogContent>
@@ -149,6 +153,8 @@ const OverviewPage = () => {
                         fullWidth
                         value={editAmount}
                         onChange={(e) => setEditAmount(e.target.value)}
+                        InputProps={{ className: 'inputField' }}
+                        InputLabelProps={{ className: 'inputLabel' }}
                     />
                     <TextField
                         margin="dense"
@@ -156,6 +162,8 @@ const OverviewPage = () => {
                         fullWidth
                         value={editDescription}
                         onChange={(e) => setEditDescription(e.target.value)}
+                        InputProps={{ className: 'inputField' }}
+                        InputLabelProps={{ className: 'inputLabel' }}
                     />
                 </DialogContent>
                 <DialogActions>

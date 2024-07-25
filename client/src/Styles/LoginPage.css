@@ -1,0 +1,30 @@
+/* Container styling */
+.container {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    color: black;
+    padding: 3rem;
+    border-radius: 8px;
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
+    border: 2px solid limegreen;
+}
+
+/* Form styling */
+.form {
+    margin-top: 3rem;
+    color: black;
+}
+
+/* Input field styling */
+.inputField {
+    color: black !important;
+    background-color: white !important;
+}
+
+/* Input label styling */
+.inputLabel {
+    color: black !important;
+}
