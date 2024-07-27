@@ -42,7 +42,7 @@ const AddCreditPage = () => {
             <Box className="container">
                 {/* Page Title */}
                 <Typography component="h1" variant="h5">
-                    Add Credit
+                    Add Credit Card Entry
                 </Typography>
                 {/* Display error message if any */}
                 {error && <Alert severity="error">{error}</Alert>}

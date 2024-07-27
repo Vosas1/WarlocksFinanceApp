@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import LogoutButton from './LogoutButton';
 
@@ -8,6 +8,11 @@ import LogoutButton from './LogoutButton';
 const NavBar = () => {
     // Access the auth state from AuthContext
     const { auth } = useContext(AuthContext);
+    const location = useLocation();
+
+    const isActive = (path) => {
+        return location.pathname === path ? 'active' : '';
+    };
 
     return (
         // AppBar component from MUI for the navigation bar
@@ -20,93 +25,92 @@ const NavBar = () => {
                 {/* Navigation buttons container */}
                 <Box>
                     {/* Navigation buttons to different routes */}
-                    <Button 
-                        color="inherit" 
-                        component={Link} 
-                        to="/" 
-                        sx={{ 
-                            '&:hover': { 
-                                color: 'limegreen' 
-                            }
+                    <Button
+                        color="inherit"
+                        component={Link}
+                        to="/"
+                        className={isActive('/')}
+                        sx={{
+                            '&.active': { fontWeight: 'bold', color: 'yellow' },
+                            '&:hover': { color: 'limegreen' }
                         }}
                     >
                         Home
                     </Button>
-                    <Button 
-                        color="inherit" 
-                        component={Link} 
-                        to="/add-credit" 
-                        sx={{ 
-                            '&:hover': { 
-                                color: 'limegreen' 
-                            }
-                        }}
-                    >
-                        Add Credit
-                    </Button>
-                    <Button 
-                        color="inherit" 
-                        component={Link} 
-                        to="/add-loan" 
-                        sx={{ 
-                            '&:hover': { 
-                                color: 'limegreen' 
-                            }
-                        }}
-                    >
-                        Add Loan
-                    </Button>
-                    <Button 
-                        color="inherit" 
-                        component={Link} 
-                        to="/add-expense" 
-                        sx={{ 
-                            '&:hover': { 
-                                color: 'limegreen' 
-                            }
-                        }}
-                    >
-                        Add Expense
-                    </Button>
-                    <Button 
-                        color="inherit" 
-                        component={Link} 
-                        to="/overview" 
-                        sx={{ 
-                            '&:hover': { 
-                                color: 'limegreen' 
-                            }
-                        }}
-                    >
-                        Overview
-                    </Button>
-                    {/* Conditional rendering based on authentication status */}
                     {auth ? (
-                        // Show LogoutButton if authenticated
-                        <LogoutButton />
-                    ) : (
-                        // Show Register and Login buttons if not authenticated
                         <>
-                            <Button 
-                                color="inherit" 
-                                component={Link} 
-                                to="/register" 
-                                sx={{ 
-                                    '&:hover': { 
-                                        color: 'limegreen' 
-                                    }
+                            <Button
+                                color="inherit"
+                                component={Link}
+                                to="/add-credit"
+                                className={isActive('/add-credit')}
+                                sx={{
+                                    '&.active': { fontWeight: 'bold', color: 'yellow' },
+                                    '&:hover': { color: 'limegreen' }
+                                }}
+                            >
+                                Add Credit
+                            </Button>
+                            <Button
+                                color="inherit"
+                                component={Link}
+                                to="/add-loan"
+                                className={isActive('/add-loan')}
+                                sx={{
+                                    '&.active': { fontWeight: 'bold', color: 'yellow' },
+                                    '&:hover': { color: 'limegreen' }
+                                }}
+                            >
+                                Add Loan
+                            </Button>
+                            <Button
+                                color="inherit"
+                                component={Link}
+                                to="/add-expense"
+                                className={isActive('/add-expense')}
+                                sx={{
+                                    '&.active': { fontWeight: 'bold', color: 'yellow' },
+                                    '&:hover': { color: 'limegreen' }
+                                }}
+                            >
+                                Add Expense
+                            </Button>
+                            <Button
+                                color="inherit"
+                                component={Link}
+                                to="/overview"
+                                className={isActive('/overview')}
+                                sx={{
+                                    '&.active': { fontWeight: 'bold', color: 'yellow' },
+                                    '&:hover': { color: 'limegreen' }
+                                }}
+                            >
+                                Overview
+                            </Button>
+                            <LogoutButton />
+                        </>
+                    ) : (
+                        <>
+                            <Button
+                                color="inherit"
+                                component={Link}
+                                to="/register"
+                                className={isActive('/register')}
+                                sx={{
+                                    '&.active': { fontWeight: 'bold', color: 'yellow' },
+                                    '&:hover': { color: 'limegreen' }
                                 }}
                             >
                                 Register
                             </Button>
-                            <Button 
-                                color="inherit" 
-                                component={Link} 
-                                to="/login" 
-                                sx={{ 
-                                    '&:hover': { 
-                                        color: 'limegreen' 
-                                    }
+                            <Button
+                                color="inherit"
+                                component={Link}
+                                to="/login"
+                                className={isActive('/login')}
+                                sx={{
+                                    '&.active': { fontWeight: 'bold', color: 'yellow' },
+                                    '&:hover': { color: 'limegreen' }
                                 }}
                             >
                                 Login

@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
-import { Container, Typography, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, Alert } from '@mui/material';
-import '../Styles/OverviewPage.css';
+import { Container, Typography, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 
 // OverviewPage component: Displays an overview of all transactions
 const OverviewPage = () => {
@@ -12,7 +11,7 @@ const OverviewPage = () => {
     const [open, setOpen] = useState(false);
     const [editAmount, setEditAmount] = useState('');
     const [editDescription, setEditDescription] = useState('');
-    
+
     // Access the auth state from AuthContext
     const { auth } = useContext(AuthContext);
 
@@ -20,7 +19,6 @@ const OverviewPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // Fetch expenses, loans, and credits concurrently
                 const [expensesResponse, loansResponse, creditsResponse] = await Promise.all([
                     axios.get('http://localhost:5000/api/expenses', {
                         headers: { Authorization: `Bearer ${auth}` },
@@ -32,7 +30,6 @@ const OverviewPage = () => {
                         headers: { Authorization: `Bearer ${auth}` },
                     }),
                 ]);
-                // Combine all transactions into a single array with type information
                 setTransactions([
                     ...expensesResponse.data.map((expense) => ({ ...expense, type: 'Expense' })),
                     ...loansResponse.data.map((loan) => ({ ...loan, type: 'Loan' })),
@@ -49,12 +46,18 @@ const OverviewPage = () => {
     }, [auth]);
 
     // Handle delete transaction
-    const handleDelete = async (id) => {
+    const handleDelete = async (transaction) => {
+        const urlMap = {
+            'Expense': `http://localhost:5000/api/expenses/${transaction._id}`,
+            'Loan': `http://localhost:5000/api/loans/${transaction._id}`,
+            'Credit': `http://localhost:5000/api/credits/${transaction._id}`
+        };
+
         try {
-            await axios.delete(`http://localhost:5000/api/expenses/${id}`, {
+            await axios.delete(urlMap[transaction.type], {
                 headers: { Authorization: `Bearer ${auth}` },
             });
-            setTransactions(transactions.filter(transaction => transaction._id !== id));
+            setTransactions(transactions.filter(t => t._id !== transaction._id));
         } catch (error) {
             console.error(error);
         }
@@ -75,8 +78,14 @@ const OverviewPage = () => {
 
     // Handle update transaction
     const handleUpdate = async () => {
+        const urlMap = {
+            'Expense': `http://localhost:5000/api/expenses/${selectedTransaction._id}`,
+            'Loan': `http://localhost:5000/api/loans/${selectedTransaction._id}`,
+            'Credit': `http://localhost:5000/api/credits/${selectedTransaction._id}`
+        };
+
         try {
-            await axios.put(`http://localhost:5000/api/expenses/${selectedTransaction._id}`, {
+            await axios.put(urlMap[selectedTransaction.type], {
                 amount: editAmount,
                 description: editDescription,
             }, {
@@ -94,14 +103,12 @@ const OverviewPage = () => {
     };
 
     return (
-        <Container component="main" maxWidth="lg">
-            <Box className="container">
-                {/* Page Title */}
+        <Container>
+            <Box sx={{ marginTop: 8 }}>
                 <Typography variant="h4" gutterBottom>
                     Overview
                 </Typography>
-                {/* Transactions Table */}
-                <TableContainer component={Paper} className="table-container">
+                <TableContainer component={Paper}>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -131,7 +138,7 @@ const OverviewPage = () => {
                                         <Button 
                                             variant="contained" 
                                             color="secondary" 
-                                            onClick={() => handleDelete(transaction._id)}
+                                            onClick={() => handleDelete(transaction)}
                                         >
                                             Delete
                                         </Button>
@@ -142,7 +149,6 @@ const OverviewPage = () => {
                     </Table>
                 </TableContainer>
             </Box>
-            {/* Edit Dialog */}
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Edit Transaction</DialogTitle>
                 <DialogContent>
@@ -153,8 +159,6 @@ const OverviewPage = () => {
                         fullWidth
                         value={editAmount}
                         onChange={(e) => setEditAmount(e.target.value)}
-                        InputProps={{ className: 'inputField' }}
-                        InputLabelProps={{ className: 'inputLabel' }}
                     />
                     <TextField
                         margin="dense"
@@ -162,8 +166,6 @@ const OverviewPage = () => {
                         fullWidth
                         value={editDescription}
                         onChange={(e) => setEditDescription(e.target.value)}
-                        InputProps={{ className: 'inputField' }}
-                        InputLabelProps={{ className: 'inputLabel' }}
                     />
                 </DialogContent>
                 <DialogActions>

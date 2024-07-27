@@ -43,7 +43,7 @@ const AddLoanPage = () => {
             <Box className="container">
                 {/* Page Title */}
                 <Typography component="h1" variant="h5">
-                    Add Loan
+                    Add Loan Entry
                 </Typography>
                 {/* Display error message if any */}
                 {error && <Alert severity="error">{error}</Alert>}
