@@ -22,8 +22,10 @@ const LoginPage = () => {
         e.preventDefault();
         
         try {
+            // Use environment variable for API URL
+            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
             // Make a POST request to log in the user
-            const response = await axios.post('http://localhost:5000/api/users/login', { email, password });
+            const response = await axios.post(`${API_URL}/api/users/login`, { email, password });
             setAuth(response.data.token);
             navigate('/');
         } catch (error) {

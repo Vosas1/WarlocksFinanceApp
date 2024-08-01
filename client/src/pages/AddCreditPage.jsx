@@ -19,8 +19,10 @@ const AddCreditPage = () => {
         setSuccess('');
 
         try {
+            // Use environment variable for API URL
+            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
             await axios.post(
-                'http://localhost:5000/api/credits/add',
+                `${API_URL}/api/credits/add`,
                 { amount, description },
                 { headers: { Authorization: `Bearer ${auth}` } }
             );

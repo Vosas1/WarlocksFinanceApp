@@ -17,14 +17,16 @@ const OverviewPage = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                // Use environment variable for API URL
+                const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
                 const [expensesResponse, loansResponse, creditsResponse] = await Promise.all([
-                    axios.get('http://localhost:5000/api/expenses', {
+                    axios.get(`${API_URL}/api/expenses`, {
                         headers: { Authorization: `Bearer ${auth}` },
                     }),
-                    axios.get('http://localhost:5000/api/loans', {
+                    axios.get(`${API_URL}/api/loans`, {
                         headers: { Authorization: `Bearer ${auth}` },
                     }),
-                    axios.get('http://localhost:5000/api/credits', {
+                    axios.get(`${API_URL}/api/credits`, {
                         headers: { Authorization: `Bearer ${auth}` },
                     }),
                 ]);
@@ -46,7 +48,9 @@ const OverviewPage = () => {
     // Delete transaction
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/expenses/${id}`, {
+            // Use environment variable for API URL
+            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            await axios.delete(`${API_URL}/api/expenses/${id}`, {
                 headers: { Authorization: `Bearer ${auth}` },
             });
             setTransactions(transactions.filter(transaction => transaction._id !== id));
@@ -71,7 +75,9 @@ const OverviewPage = () => {
     // Update transaction
     const handleUpdate = async () => {
         try {
-            await axios.put(`http://localhost:5000/api/expenses/${selectedTransaction._id}`, {
+            // Use environment variable for API URL
+            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+            await axios.put(`${API_URL}/api/expenses/${selectedTransaction._id}`, {
                 amount: editAmount,
                 description: editDescription,
             }, {

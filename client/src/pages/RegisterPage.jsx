@@ -21,8 +21,10 @@ const RegisterPage = () => {
         setError('');
 
         try {
+            // Use environment variable for API URL
+            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
             // Make a POST request to register the user
-            await axios.post('http://localhost:5000/api/users/register', { name, email, password });
+            await axios.post(`${API_URL}/api/users/register`, { name, email, password });
             navigate('/login');
         } catch (error) {
             console.error(error);

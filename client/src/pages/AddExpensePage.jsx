@@ -18,8 +18,10 @@ const AddExpensePage = () => {
         setSuccess('');
 
         try {
+            // Use environment variable for API URL
+            const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
             await axios.post(
-                'http://localhost:5000/api/expenses/add',
+                `${API_URL}/api/expenses/add`,
                 { type: 'Expense', amount, description },
                 { headers: { Authorization: `Bearer ${auth}` } }
             );
