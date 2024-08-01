@@ -1,5 +1,17 @@
-/* Container styling */
-.container {
+/* Keyframes for slide-down effect */
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Apply the slide-down effect to the container specifically for AddExpensePage */
+.AddExpensePage .container {
     margin-top: 8px;
     display: flex;
     flex-direction: column;
@@ -10,26 +22,19 @@
     border-radius: 8px;
     box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
     border: 2px solid limegreen;
+    animation: slideDown 1s ease-out;
 }
 
-/* Alert styling */
-.alert {
-    color: black;
-}
-
-/* Form styling */
 .form {
     margin-top: 3rem;
     color: black;
 }
 
-/* Input field styling */
 .inputField {
-    color: black !important;
-    background-color: white !important;
+    color: black;
+    background-color: white;
 }
 
-/* Input label styling */
 .inputLabel {
-    color: black !important;
+    color: black;
 }

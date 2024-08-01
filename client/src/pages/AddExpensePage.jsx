@@ -6,23 +6,18 @@ import '../Styles/AddExpensePage.css';
 
 // AddExpensePage component: A form for adding expense entries
 const AddExpensePage = () => {
-    // State variables for the form inputs and messages
     const [amount, setAmount] = useState('');
     const [description, setDescription] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-    
-    // Access the auth state from AuthContext
     const { auth } = useContext(AuthContext);
 
-    // Function to handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
         setSuccess('');
 
         try {
-            // Make a POST request to add the expense entry
             await axios.post(
                 'http://localhost:5000/api/expenses/add',
                 { type: 'Expense', amount, description },
@@ -38,19 +33,14 @@ const AddExpensePage = () => {
     };
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="xs" className="AddExpensePage">
             <Box className="container">
-                {/* Page Title */}
                 <Typography component="h1" variant="h5">
-                    Add Expense Entry
+                    Add Expense
                 </Typography>
-                {/* Display error message if any */}
                 {error && <Alert severity="error">{error}</Alert>}
-                {/* Display success message if any */}
                 {success && <Alert severity="success">{success}</Alert>}
-                {/* Form */}
                 <Box component="form" onSubmit={handleSubmit} className="form">
-                    {/* Input for amount */}
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -67,7 +57,6 @@ const AddExpensePage = () => {
                         InputProps={{ className: 'inputField' }}
                         InputLabelProps={{ className: 'inputLabel' }}
                     />
-                    {/* Input for description */}
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -82,7 +71,6 @@ const AddExpensePage = () => {
                         InputProps={{ className: 'inputField' }}
                         InputLabelProps={{ className: 'inputLabel' }}
                     />
-                    {/* Submit button */}
                     <Button
                         type="submit"
                         fullWidth

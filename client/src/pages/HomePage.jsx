@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import logo from '../assets/Images/financial warlocks logo.jpg';
 import Lee from '../assets/Images/Lee.png';
@@ -9,6 +9,23 @@ import '../Styles/HomePage.css';
 
 // HomePage component: Displays the home page content
 const HomePage = () => {
+    const [bio, setBio] = useState('');
+    // Developer Bios
+    const bios = {
+        Lee: 'Name: Lee Santos\nLocation: Oshawa\nDeveloper Role: Backend\nFavorite Pizza Topping: Pepperoni, mushrooms, and green peppers\nFuture Ambitions: Software Engineer',
+        Victor: 'Name: Victor Osaikhuwuomwan\nLocation: Toronto\nDeveloper Role: Backend\nFavorite Pizza Topping: Veggies\nFuture Ambitions: Machine Learning Engineering',
+        Derek: 'Name: Derek Leduc\nLocation: Toronto, Ontario\nDeveloper Role: Front End/UX/UI\nFavorite Pizza Topping: Bacon\nFuture Ambitions: Integrating hardware and software together',
+        Khyam: 'Name: Khyam\nLocation: \nDeveloper Role: Backend\nFavorite Pizza Topping: Tomato Sauce\nFuture Ambitions: Persuing Backend Development',
+    };
+
+    const handleMouseEnter = (name) => {
+        setBio(bios[name]);
+    };
+
+    const handleMouseLeave = () => {
+        setBio('');
+    };
+
     return (
         <Box 
             sx={{ 
@@ -22,14 +39,21 @@ const HomePage = () => {
                 boxSizing: 'border-box'
             }}
         >
-            {/* Container for the logo */}
+            {/* Container for the logo and biography */}
             <Box className="logo-container">
                 <Box
                     component="img"
                     src={logo}
                     alt="Financial Warlocks Logo"
                     className="logo"
+                    style={{ display: bio ? 'none' : 'block' }}
                 />
+                <Box
+                    className="bio-container"
+                    sx={{ display: bio ? 'flex' : 'none' }}
+                >
+                    <Typography variant="body1">{bio}</Typography>
+                </Box>
             </Box>
             
             {/* Container for the text and images */}
@@ -60,10 +84,10 @@ const HomePage = () => {
                 
                 {/* New container for images */}
                 <Box className="image-container">
-                    <Box component="img" src={Lee} alt="Lee" className="image" />
-                    <Box component="img" src={Victor} alt="Victor" className="image" />
-                    <Box component="img" src={Derek} alt="Derek" className="image" />
-                    <Box component="img" src={Khyam} alt="Khyam" className="image" />
+                    <Box component="img" src={Lee} alt="Lee" className="image" onMouseEnter={() => handleMouseEnter('Lee')} onMouseLeave={handleMouseLeave} />
+                    <Box component="img" src={Victor} alt="Victor" className="image" onMouseEnter={() => handleMouseEnter('Victor')} onMouseLeave={handleMouseLeave} />
+                    <Box component="img" src={Derek} alt="Derek" className="image" onMouseEnter={() => handleMouseEnter('Derek')} onMouseLeave={handleMouseLeave} />
+                    <Box component="img" src={Khyam} alt="Khyam" className="image" onMouseEnter={() => handleMouseEnter('Khyam')} onMouseLeave={handleMouseLeave} />
                 </Box>
             </Box>
         </Box>

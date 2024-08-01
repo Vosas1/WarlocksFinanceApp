@@ -1,27 +1,42 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import LogoutButton from './LogoutButton';
+import '../Styles/NavBar.css';
 
 // NavBar component: The navigation bar for the application.
 const NavBar = () => {
-    // Access the auth state from AuthContext
+    // State and context hooks
     const { auth } = useContext(AuthContext);
     const location = useLocation();
+    const [glow, setGlow] = useState(false);
 
+    // Effect to handle the glow animation on location change
+    useEffect(() => {
+        setGlow(false);
+        const timer = setTimeout(() => setGlow(true), 50); 
+        return () => clearTimeout(timer);
+    }, [location.pathname]);
+
+    // Helper function to determine active route
     const isActive = (path) => {
         return location.pathname === path ? 'active' : '';
     };
 
     return (
-        // AppBar component from MUI for the navigation bar
         <AppBar position="static">
             <Toolbar>
-                {/* Application title */}
-                <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                {/* Application title with glow effect */}
+                <Typography
+                    variant="h6"
+                    component="div"
+                    sx={{ flexGrow: 1 }}
+                    className={glow ? 'glow-text' : ''}
+                >
                     Financial Warlocks' Expense Tracker
                 </Typography>
+                
                 {/* Navigation buttons container */}
                 <Box>
                     {/* Navigation buttons to different routes */}
@@ -32,7 +47,7 @@ const NavBar = () => {
                         className={isActive('/')}
                         sx={{
                             '&.active': { fontWeight: 'bold', color: 'yellow' },
-                            '&:hover': { color: 'limegreen' }
+                            '&:hover': { color: 'limegreen' },
                         }}
                     >
                         Home
@@ -46,7 +61,7 @@ const NavBar = () => {
                                 className={isActive('/add-credit')}
                                 sx={{
                                     '&.active': { fontWeight: 'bold', color: 'yellow' },
-                                    '&:hover': { color: 'limegreen' }
+                                    '&:hover': { color: 'limegreen' },
                                 }}
                             >
                                 Add Credit
@@ -58,7 +73,7 @@ const NavBar = () => {
                                 className={isActive('/add-loan')}
                                 sx={{
                                     '&.active': { fontWeight: 'bold', color: 'yellow' },
-                                    '&:hover': { color: 'limegreen' }
+                                    '&:hover': { color: 'limegreen' },
                                 }}
                             >
                                 Add Loan
@@ -70,7 +85,7 @@ const NavBar = () => {
                                 className={isActive('/add-expense')}
                                 sx={{
                                     '&.active': { fontWeight: 'bold', color: 'yellow' },
-                                    '&:hover': { color: 'limegreen' }
+                                    '&:hover': { color: 'limegreen' },
                                 }}
                             >
                                 Add Expense
@@ -82,7 +97,7 @@ const NavBar = () => {
                                 className={isActive('/overview')}
                                 sx={{
                                     '&.active': { fontWeight: 'bold', color: 'yellow' },
-                                    '&:hover': { color: 'limegreen' }
+                                    '&:hover': { color: 'limegreen' },
                                 }}
                             >
                                 Overview
@@ -98,7 +113,7 @@ const NavBar = () => {
                                 className={isActive('/register')}
                                 sx={{
                                     '&.active': { fontWeight: 'bold', color: 'yellow' },
-                                    '&:hover': { color: 'limegreen' }
+                                    '&:hover': { color: 'limegreen' },
                                 }}
                             >
                                 Register
@@ -110,7 +125,7 @@ const NavBar = () => {
                                 className={isActive('/login')}
                                 sx={{
                                     '&.active': { fontWeight: 'bold', color: 'yellow' },
-                                    '&:hover': { color: 'limegreen' }
+                                    '&:hover': { color: 'limegreen' },
                                 }}
                             >
                                 Login

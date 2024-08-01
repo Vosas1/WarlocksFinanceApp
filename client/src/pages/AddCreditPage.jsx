@@ -4,25 +4,21 @@ import axios from 'axios';
 import AuthContext from '../context/AuthContext';
 import '../Styles/AddCreditPage.css';
 
-// AddCreditPage component: A form for adding credit entries
 const AddCreditPage = () => {
-    // State variables for the form inputs and messages
+    // State variables
     const [amount, setAmount] = useState('');
     const [description, setDescription] = useState('');
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
-    
-    // Access the auth state from AuthContext
     const { auth } = useContext(AuthContext);
 
-    // Function to handle form submission
+    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
         setSuccess('');
 
         try {
-            // Make a POST request to add the credit entry
             await axios.post(
                 'http://localhost:5000/api/credits/add',
                 { amount, description },
@@ -38,19 +34,14 @@ const AddCreditPage = () => {
     };
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="xs" className="AddCreditPage">
             <Box className="container">
-                {/* Page Title */}
                 <Typography component="h1" variant="h5">
-                    Add Credit Card Entry
+                    Add Credit
                 </Typography>
-                {/* Display error message if any */}
                 {error && <Alert severity="error">{error}</Alert>}
-                {/* Display success message if any */}
                 {success && <Alert severity="success">{success}</Alert>}
-                {/* Form */}
                 <Box component="form" onSubmit={handleSubmit} className="form">
-                    {/* Input for amount */}
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -67,7 +58,6 @@ const AddCreditPage = () => {
                         InputProps={{ className: 'inputField' }}
                         InputLabelProps={{ className: 'inputLabel' }}
                     />
-                    {/* Input for description */}
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -82,7 +72,6 @@ const AddCreditPage = () => {
                         InputProps={{ className: 'inputField' }}
                         InputLabelProps={{ className: 'inputLabel' }}
                     />
-                    {/* Submit button */}
                     <Button
                         type="submit"
                         fullWidth

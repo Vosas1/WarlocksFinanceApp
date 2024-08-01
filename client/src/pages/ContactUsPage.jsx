@@ -3,9 +3,9 @@ import { Container, TextField, Button, Typography, Box, Alert } from '@mui/mater
 import axios from 'axios';
 import '../Styles/ContactUsPage.css';
 
-// ContactUsPage component: A form for contacting the support team
+// ContactUsPage component: A form for users to contact
 const ContactUsPage = () => {
-    // State variables for the form inputs and messages
+    // State variables
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -13,14 +13,13 @@ const ContactUsPage = () => {
     const [success, setSuccess] = useState('');
     const [error, setError] = useState('');
 
-    // Function to handle form submission
+    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSuccess('');
         setError('');
 
         try {
-            // Make a POST request to submit the contact form
             const response = await axios.post('http://localhost:5000/api/contact', { name, email, phone, message });
             setSuccess(response.data.message);
             setName('');
@@ -33,7 +32,7 @@ const ContactUsPage = () => {
     };
 
     return (
-        <Container component="main" maxWidth="sm">
+        <Container component="main" maxWidth="sm" className="ContactUsPage">
             <Box className="container">
                 <Typography component="h1" variant="h5">
                     Contact Us

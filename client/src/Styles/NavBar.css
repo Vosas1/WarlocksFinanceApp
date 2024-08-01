@@ -1,0 +1,14 @@
+/* Keyframes for glow effect */
+@keyframes glow {
+    0% {
+        text-shadow: 0 0 5px orange, 0 0 10px orange, 0 0 15px orange, 0 0 20px orange;
+    }
+    100% {
+        text-shadow: none;
+    }
+}
+
+/* Apply glow effect to text */
+.glow-text {
+    animation: glow 2s ease-in-out forwards;
+}

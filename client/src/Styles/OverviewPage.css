@@ -1,5 +1,17 @@
-/* Container styling */
-.container {
+/* Keyframes for zoom-in effect */
+@keyframes zoomIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Apply the zoom-in effect to the container specifically for OverviewPage */
+.OverviewPage .container {
     margin-top: 8px;
     display: flex;
     flex-direction: column;
@@ -10,31 +22,65 @@
     border-radius: 8px;
     box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.1);
     border: 2px solid limegreen;
+    animation: zoomIn 1s ease-in-out;
 }
 
-/* Table container styling */
+/* Styles for table container */
 .table-container {
     width: 100%;
 }
 
-/* Alert styling */
+/* Styles for alert */
 .alert {
     color: black;
 }
 
-/* Form styling */
+/* Styles for form */
 .form {
     margin-top: 3rem;
     color: black;
 }
 
-/* Input field styling */
+/* Styles for input fields */
 .inputField {
-    color: black !important;
-    background-color: white !important;
+    color: black;
+    background-color: white;
 }
 
-/* Input label styling */
-.inputLabel {
+/* Styles for dialog input labels */
+.dialogInputLabel {
     color: black !important;
+}
+
+/* Override styles for Mui input label */
+.MuiInputLabel-root {
+    color: black !important;
+}
+
+.MuiInputLabel-root.Mui-focused {
+    color: limegreen !important;
+}
+
+/* Styles for dialog content */
+.MuiDialogContent-root {
+    background-color: white;
+}
+
+/* Styles for dialog title */
+.MuiDialogTitle-root {
+    color: black;
+    background-color: white;
+}
+
+/* Override styles for Mui outlined input */
+.MuiOutlinedInput-root {
+    & fieldset {
+        border-color: black !important;
+    }
+    &:hover fieldset {
+        border-color: black !important;
+    }
+    &.Mui-focused fieldset {
+        border-color: #6a1b9a !important; 
+    }
 }

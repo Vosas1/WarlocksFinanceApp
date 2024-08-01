@@ -1,4 +1,4 @@
-/* Logo container styling */
+/* Styles for the logo container */
 .logo-container {
     flex: 1;
     display: flex;
@@ -8,9 +8,10 @@
     height: auto;
     padding: 2rem;
     background-color: transparent;
+    position: relative;
 }
 
-/* Logo styling */
+/* Styles for the logo */
 .logo {
     width: 100%;
     max-width: 80%;
@@ -19,7 +20,29 @@
     border-radius: 8px;
 }
 
-/* Text and image container styling */
+/* Styles for the biography container */
+.bio-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 2px solid limegreen;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    box-sizing: border-box;
+    white-space: pre-line;
+    color: white; 
+}
+
+/* Styles for the text and image containers */
 .text-and-image-container {
     flex: 1;
     display: flex;
@@ -31,7 +54,7 @@
     padding: 2rem;
 }
 
-/* Text container styling */
+/* Styles for the text container */
 .text-container {
     width: 100%;
     padding: 2rem;
@@ -45,7 +68,7 @@
     margin-bottom: 1rem;
 }
 
-/* Image container styling */
+/* Styles for the image container */
 .image-container {
     width: 100%;
     display: flex;
@@ -56,10 +79,11 @@
     background-color: transparent;
 }
 
-/* Image styling */
+/* Styles for the images */
 .image {
     width: 20%;
     height: auto;
     border: 2px solid limegreen;
     border-radius: 8px;
+    cursor: pointer;
 }

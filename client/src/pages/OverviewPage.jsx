@@ -1,21 +1,19 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import AuthContext from '../context/AuthContext';
-import { Container, Typography, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Container, Typography, Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, TextField, Dialog, DialogActions, DialogContent, DialogTitle, Alert } from '@mui/material';
+import '../Styles/OverviewPage.css';
 
-// OverviewPage component: Displays an overview of all transactions
 const OverviewPage = () => {
-    // State variables for transactions and editing dialogs
+    // State variables
     const [transactions, setTransactions] = useState([]);
     const [selectedTransaction, setSelectedTransaction] = useState(null);
     const [open, setOpen] = useState(false);
     const [editAmount, setEditAmount] = useState('');
     const [editDescription, setEditDescription] = useState('');
-
-    // Access the auth state from AuthContext
     const { auth } = useContext(AuthContext);
 
-    // Fetch transactions data on component mount
+    // Fetch data
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -45,25 +43,19 @@ const OverviewPage = () => {
         }
     }, [auth]);
 
-    // Handle delete transaction
-    const handleDelete = async (transaction) => {
-        const urlMap = {
-            'Expense': `http://localhost:5000/api/expenses/${transaction._id}`,
-            'Loan': `http://localhost:5000/api/loans/${transaction._id}`,
-            'Credit': `http://localhost:5000/api/credits/${transaction._id}`
-        };
-
+    // Delete transaction
+    const handleDelete = async (id) => {
         try {
-            await axios.delete(urlMap[transaction.type], {
+            await axios.delete(`http://localhost:5000/api/expenses/${id}`, {
                 headers: { Authorization: `Bearer ${auth}` },
             });
-            setTransactions(transactions.filter(t => t._id !== transaction._id));
+            setTransactions(transactions.filter(transaction => transaction._id !== id));
         } catch (error) {
             console.error(error);
         }
     };
 
-    // Handle edit transaction
+    // Edit transaction
     const handleEdit = (transaction) => {
         setSelectedTransaction(transaction);
         setEditAmount(transaction.amount);
@@ -71,21 +63,15 @@ const OverviewPage = () => {
         setOpen(true);
     };
 
-    // Close the edit dialog
+    // Close dialog
     const handleClose = () => {
         setOpen(false);
     };
 
-    // Handle update transaction
+    // Update transaction
     const handleUpdate = async () => {
-        const urlMap = {
-            'Expense': `http://localhost:5000/api/expenses/${selectedTransaction._id}`,
-            'Loan': `http://localhost:5000/api/loans/${selectedTransaction._id}`,
-            'Credit': `http://localhost:5000/api/credits/${selectedTransaction._id}`
-        };
-
         try {
-            await axios.put(urlMap[selectedTransaction.type], {
+            await axios.put(`http://localhost:5000/api/expenses/${selectedTransaction._id}`, {
                 amount: editAmount,
                 description: editDescription,
             }, {
@@ -103,12 +89,12 @@ const OverviewPage = () => {
     };
 
     return (
-        <Container>
-            <Box sx={{ marginTop: 8 }}>
+        <Container component="main" maxWidth="lg" className="OverviewPage">
+            <Box className="container">
                 <Typography variant="h4" gutterBottom>
                     Overview
                 </Typography>
-                <TableContainer component={Paper}>
+                <TableContainer component={Paper} className="table-container">
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -138,7 +124,7 @@ const OverviewPage = () => {
                                         <Button 
                                             variant="contained" 
                                             color="secondary" 
-                                            onClick={() => handleDelete(transaction)}
+                                            onClick={() => handleDelete(transaction._id)}
                                         >
                                             Delete
                                         </Button>
@@ -159,6 +145,8 @@ const OverviewPage = () => {
                         fullWidth
                         value={editAmount}
                         onChange={(e) => setEditAmount(e.target.value)}
+                        InputProps={{ className: 'inputField' }}
+                        InputLabelProps={{ className: 'dialogInputLabel' }}
                     />
                     <TextField
                         margin="dense"
@@ -166,6 +154,8 @@ const OverviewPage = () => {
                         fullWidth
                         value={editDescription}
                         onChange={(e) => setEditDescription(e.target.value)}
+                        InputProps={{ className: 'inputField' }}
+                        InputLabelProps={{ className: 'dialogInputLabel' }}
                     />
                 </DialogContent>
                 <DialogActions>
